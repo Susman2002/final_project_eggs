@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel Cliente</title>
+</head>
+<body>
+    <h2>Bienvenido Cliente, {{ user.username }}</h2>
+    <a href="{% url 'logout' %}">Cerrar Sesión</a>
+</body>
+</html>
