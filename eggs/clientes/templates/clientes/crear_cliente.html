@@ -1,0 +1,20 @@
+{% extends "clientes/base_admin.html" %}
+
+{% block title %}creacion de clientes{% endblock %}
+
+{% block header %}Creacion de nuevo usuario{% endblock %}
+
+{% block content %}
+<h2>Crear nuevo Cliente</h2>
+<form method="post">
+    {% csrf_token %}
+    
+    <h3>Datos de usuario</h3>
+    {{ user_form.as_p }}
+
+    <h3>Datos del cliente</h3>
+    {{ cliente_form.as_p }}
+
+    <button type="submit">Crear Cliente</button>
+</form>
+{% endblock %}

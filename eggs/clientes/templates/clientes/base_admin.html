@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Panel Admin{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+    <!-- Menú lateral -->
+    <aside class="sidebar">
+        <div class="logo">
+            <h2>Distribuidora de Huevos</h2>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="">📊 Dashboard</a></li>
+                <li><a href="{% url 'ver_clientes' %}">👥 Clientes</a></li>
+                <li><a href="#">📦 Productos</a></li>
+                <li><a href="#">🛒 Pedidos</a></li>
+                <li><a href="#">⚙ Configuración</a></li>
+                <li><a href="#">🚪 Cerrar sesión</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Contenido principal -->
+    <main class="content">
+        <header class="topbar">
+            <h1>{% block header %}Bienvenido {{ user.username }}{% endblock %}</h1>
+        </header>
+
+        <section class="main-content">
+            {% block content %}
+            <p>menu admin</p>
+            {% endblock %}
+        </section>
+    </main>
+
+</body>
+</html>

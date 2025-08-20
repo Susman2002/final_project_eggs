@@ -16,18 +16,22 @@ def login_view(request):
     if request.method == 'POST':
         form = CustomLoginForm(request.POST)
         if form.is_valid():
-            user = authenticate(
-                username=form.cleaned_data['username'],
-                password=form.cleaned_data['password']
-            )
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(request, username=username, password=password)
+
             if user is not None:
                 login(request, user)
+                # Redirección según rol
                 if user.role == 'ADMIN':
                     return redirect('admin_dashboard')
-                else:
+                elif user.role == 'CLIENT':
                     return redirect('client_dashboard')
+            else:
+                form.add_error(None, "Usuario o contraseña incorrectos")
     else:
         form = CustomLoginForm()
+    
     return render(request, 'users/login.html', {'form': form})
 
 def logout_view(request):
@@ -36,15 +40,5 @@ def logout_view(request):
 
 
 #---------------------
-from django.contrib.auth.decorators import login_required, user_passes_test
 
-@login_required
-@user_passes_test(lambda u: u.role == 'ADMIN')
-def admin_dashboard(request):
-    return render(request, 'users/admin_dashboard.html')
-
-@login_required
-@user_passes_test(lambda u: u.role == 'CLIENT')
-def client_dashboard(request):
-    return render(request, 'users/client_dashboard.html')
 

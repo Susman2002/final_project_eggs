@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users',
+    'clientes',
 ]
 
 MIDDLEWARE = [
@@ -52,10 +53,13 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'eggs.urls'
 
+
+import os
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -76,7 +80,7 @@ WSGI_APPLICATION = 'eggs.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'egg_database',
+        'NAME': 'eggs_db',
         'USER': 'postgres',
         'PASSWORD': 'Lokillo22',
         'HOST': 'localhost',
