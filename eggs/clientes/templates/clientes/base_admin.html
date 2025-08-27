@@ -18,10 +18,10 @@
             <ul>
                 <li><a href="">📊 Dashboard</a></li>
                 <li><a href="{% url 'ver_clientes' %}">👥 Clientes</a></li>
-                <li><a href="#">📦 Productos</a></li>
-                <li><a href="#">🛒 Pedidos</a></li>
+                <li><a href="{% url 'ver_productos' %}">📦 Productos</a></li>
+                <li><a href="{% url 'pedidos_listar' %}">🛒 Pedidos</a></li>
                 <li><a href="#">⚙ Configuración</a></li>
-                <li><a href="#">🚪 Cerrar sesión</a></li>
+                <li><a href="{% url 'logout' %}">🚪 Cerrar sesión</a></li>
             </ul>
         </nav>
     </aside>
@@ -29,7 +29,8 @@
     <!-- Contenido principal -->
     <main class="content">
         <header class="topbar">
-            <h1>{% block header %}Bienvenido {{ user.username }}{% endblock %}</h1>
+        <span class="menu-toggle" onclick="toggleMenu()">☰</span>
+        <h1>{% block header %}Bienvenido {{ user.username }}{% endblock %}</h1>
         </header>
 
         <section class="main-content">
@@ -38,6 +39,11 @@
             {% endblock %}
         </section>
     </main>
+
+    <script>
+        function toggleMenu() {
+        document.querySelector('.sidebar').classList.toggle('active');}
+    </script>
 
 </body>
 </html>

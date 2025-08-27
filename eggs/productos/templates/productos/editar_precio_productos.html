@@ -1,0 +1,15 @@
+{% extends "clientes/base_admin.html" %}
+
+{% block title %}Editar Porducto{% endblock %}
+
+{% block header %}Gestión de Productos{% endblock %}
+
+{% block content %}
+<h2>Editar precio de {{ producto.get_nombre_display }}</h2>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Guardar cambios</button>
+    <a href="{% url 'ver_productos' %}">Cancelar</a>
+</form>
+{% endblock %}

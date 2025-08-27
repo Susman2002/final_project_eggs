@@ -1,0 +1,39 @@
+{% extends "clientes/base_admin.html" %}
+
+{% block title %}Productos{% endblock %}
+
+{% block header %}Gestión de Productos{% endblock %}
+
+{% block content %}
+    <h2>Listado de Productos</h2>
+    <table class="table-custom">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tamaño</th>
+                <th>Precio Unitario (Bs)</th>
+                <th>Cantidad en Stock</th>
+                <th>Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for producto in productos %}
+                <tr>
+                    <td>{{ producto.id }}</td>
+                    <td>{{ producto.nombre }}</td>
+                    <td>{{ producto.precio_unitario }}</td>
+                    <td>{{ producto.stock }}</td>
+                    <td>
+                    <button class="btn btn-success">
+                        <a href="{% url 'editar_productos' producto.pk %}">Editar precio</a>
+                    </button>
+            </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="4">No hay productos registrados.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

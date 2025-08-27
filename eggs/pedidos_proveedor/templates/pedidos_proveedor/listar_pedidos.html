@@ -1,0 +1,76 @@
+{% extends "clientes/base_admin.html" %}
+
+{% block title %}Pedidos{% endblock %}
+
+{% block header %}Gestión de Pedidos{% endblock %}
+
+{% block content %}
+
+<button><a href="{% url 'pedidos_crear' %}" class="btn btn-success">Realizar nuevo Pedido</a></button>
+
+<h2>📦 Pedidos Pendientes</h2>
+<table class="table-custom">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Fecha pedido</th>
+      <th>Ítems</th>
+      <th>Acción</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for p in pedidos_pendientes %}
+      <tr>
+        <td>#{{ p.id }}</td>
+        <td>{{ p.fecha_pedido }}</td>
+        <td>
+          <ul style="margin:0; padding-left:18px;">
+            {% for it in p.items.all %}
+              <li>{{ it.producto.get_nombre_display }} — {{ it.cantidad }}</li>
+            {% endfor %}
+          </ul>
+        </td>
+        <td>
+          <a href="{% url 'pedidos_recibir' p.id %}" class="btn btn-success">Marcar recibido</a>
+        </td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="4">No hay pedidos pendientes.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+
+<h2>✅ Pedidos Completados</h2>
+<table class="table-custom">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Fecha pedido</th>
+      <th>Fecha llegada</th>
+      <th>Ítems</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for p in pedidos_completados %}
+      <tr>
+        <td>#{{ p.id }}</td>
+        <td>{{ p.fecha_pedido }}</td>
+        <td>{{ p.fecha_llegada|default:"—" }}</td>
+        <td>
+          <ul style="margin:0; padding-left:18px;">
+            {% for it in p.items.all %}
+              <li>{{ it.producto.get_nombre_display }} — {{ it.cantidad }}</li>
+            {% endfor %}
+          </ul>
+        </td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="4">No hay pedidos completados.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+
+
+{% endblock %}

@@ -1,11 +1,56 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Dashboard Cliente</title>
+    <link rel="stylesheet" href="{% static 'css/styles2.css' %}">
 </head>
 <body>
-    <h1>client dashboard</h1>
+    <header>
+        <div class="logo">Distribuidora de huevos</div>
+        <nav>
+            <ul>
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Productos</a></li>
+                <li><a href="#">Pedidos</a></li>
+                <li><a href="#">Perfil</a></li>
+                <li><a href="{% url 'logout' %}">Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="welcome">
+            <h1>{% block header %}Bienvenido {{ user.username }}{% endblock %}</h1>
+            <p>Consulta nuestros productos disponibles y sus precios.</p>
+        </section>
+        <section class="products">
+            <h2>Productos con descuento:</h2>
+            <div class="product-list">
+                <div class="product-card">
+                    <h3>Huevo Especial</h3>
+                    <p>Stock: 50</p>
+                    <p>Precio: Bs 2.50</p>
+                </div>
+                <div class="product-card">
+                    <h3>Huevo Primera</h3>
+                    <p>Stock: 100</p>
+                    <p>Precio: Bs 2.00</p>
+                </div>
+                <!-- Más productos aquí -->
+            </div>
+        </section>
+    {% block content %}
+        <p>menu admin</p>
+    {% endblock %}
+
+
+
+    </main>
+    <footer>
+        <p>&copy; 2025 Mi Distribuidora. Todos los derechos reservados.</p>
+    </footer>
 </body>
 </html>

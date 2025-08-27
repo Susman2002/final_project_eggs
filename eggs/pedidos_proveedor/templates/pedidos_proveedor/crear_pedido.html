@@ -1,0 +1,67 @@
+{% extends "clientes/base_admin.html" %}
+
+{% block title %}Productos{% endblock %}
+
+{% block header %}Gestión de Productos{% endblock %}
+
+{% block content %}
+<h2>Nuevo Pedido</h2>
+
+<form method="post">
+  {% csrf_token %}
+
+  <fieldset style="margin-bottom:1rem;">
+    <legend>Cabecera</legend>
+    {{ form.as_p }}
+  </fieldset>
+
+  <fieldset>
+    <legend>Ítems del pedido</legend>
+
+    <table id="items-table" border="1" cellspacing="0" cellpadding="6">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Cantidad</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{ formset.management_form }}
+        {% for f in formset %}
+          <tr class="item-row">
+            <td>{{ f.producto }}</td>
+            <td>{{ f.cantidad }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </fieldset>
+
+  <div style="margin-top:1rem;">
+    <button type="submit">Guardar pedido</button>
+    <a href="{% url 'pedidos_listar' %}">Cancelar</a>
+  </div>
+</form>
+
+<script>
+  (function() {
+    const addBtn = document.getElementById('add-row');
+    const tableBody = document.querySelector('#items-table tbody');
+    const totalForms = document.getElementById('id_items-TOTAL_FORMS') || 
+                       document.querySelector('input[name$="-TOTAL_FORMS"]');
+
+    // Construimos una fila a partir del empty_form del formset.
+    const emptyTemplateHtml = `
+      <tr class="item-row">
+        <td>__PRODUCTO__</td>
+        <td>__CANTIDAD__</td>
+        <td><input type="checkbox" style="visibility:hidden;" disabled></td>
+      </tr>
+    `;
+
+    // Tomamos el empty_form renderizado oculto:
+    // Si no se renderizó, esta técnica no aplica. Para asegurar, podemos reusar el último form y reemplazar índices.
+  })();
+</script>
+
+{% endblock %}
